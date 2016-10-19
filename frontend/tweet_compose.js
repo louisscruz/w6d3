@@ -1,12 +1,16 @@
 class TweetCompose {
   constructor() {
     this.$el = $('.tweet-compose');
+    console.log(this.$el);
     this.$el.on('click', 'input[type=Submit]', event => {
-      event.preventDefault();
-      this.submit();
     });
-    this.$el.on('keyup', 'textarea', event => {
+    this.$el.on('keyup', 'textarea', () => {
       this.updateCount();
+    });
+    $('.add-mentioned-user').click(this.addMentionedUser);
+    // $('.remove-mentioned-user').click(this.removeMentionedUser);
+    this.$el.on('click', '.remove-mentioned-user', event => {
+      this.removeMentionedUser(event);
     });
   }
 
@@ -44,6 +48,20 @@ class TweetCompose {
     const value = $(this.$el.find('textarea')).val();
     let remaining = 140 - value.length;
     $('.chars-left').text(remaining);
+  }
+
+  addMentionedUser() {
+    const $scriptTag = $('script[type="text/template"]');
+    const select = $scriptTag.html();
+    $('.mentioned-users').prepend(select);
+  }
+
+  removeMentionedUser(event) {
+    console.log(event);
+    console.log(event.currentTarget);
+    console.log(event.target);
+    const deleteTarget = $(event.currentTarget).parent();
+    deleteTarget.remove();
   }
 }
 

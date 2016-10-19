@@ -13,13 +13,24 @@
 
   <label>
     Mention
-    <select name="tweet[mentioned_user_ids][]">
-      <option></option>
-      <% User.all.each do |user| %>
-        <option value="<%= user.id %>"><%= user.username %></option>
-      <% end %>
-    </select>
+    <script type="text/template">
+      <div class="select-div">
+        <select name="tweet[mentioned_user_ids][]">
+          <option></option>
+          <% User.all.each do |user| %>
+            <option value="<%= user.id %>"><%= user.username %></option>
+          <% end %>
+        </select>
+        <a href="javascript:void(0)" class="remove-mentioned-user">Remove Mention</a>
+      </div>
+    </script>
   </label>
+
+  <a href="javascript:void(0)" class="add-mentioned-user" >Add Mention</a>
+  <h5>Mentioned Users</h5>
+  <div class="mentioned-users">
+  </div>
+
   <br>
   <strong class="chars-left">140</strong>
 
